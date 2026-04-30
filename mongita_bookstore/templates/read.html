@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block container %}
+
+<div style="padding: 50px 6%; max-width: 1500px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+
+  <div style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 35px;
+  ">
+    <h1 style="font-size: 42px; margin: 0;">All Books</h1>
+
+    <a href="{{ url_for('create_book') }}" style="text-decoration: none;">
+      <button style="
+          padding: 12px 24px;
+          border: none;
+          border-radius: 999px;
+          background: #0071e3;
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+      ">
+        + Create New Book
+      </button>
+    </a>
+  </div>
+
+  <div style="
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      width: 100%;
+  ">
+
+    {% for book in books %}
+    <div style="
+        border: 1px solid #e5e5e5;
+        padding: 26px;
+        border-radius: 18px;
+        background: white;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        min-height: 500px;
+        box-sizing: border-box;
+    ">
+
+      <div style="text-align: center; margin-bottom: 22px;">
+        <img src="{{ url_for('static', filename='images/books/' + book['image']) }}"
+             alt="{{ book['title'] }}"
+             style="width: 160px; height: 220px; object-fit: cover;">
+      </div>
+
+      <h2 style="font-size: 23px; line-height: 1.2; margin: 0 0 14px;">
+        {{ book['title'] }}
+      </h2>
+
+      <p style="margin: 6px 0;">Author: {{ book['author'] }}</p>
+      <p style="margin: 6px 0;">ISBN: {{ book['isbn'] }}</p>
+      <p style="margin: 6px 0;">Category: {{ book['categoryName'] }}</p>
+
+      <p style="margin: 18px 0; font-size: 22px; font-weight: 700;">
+        ${{ '%.2f'|format(book['price']) }}
+      </p>
+
+      <div style="display: flex; gap: 12px; margin-top: 20px;">
+        <a href="{{ url_for('edit_book', id=book['bookId']) }}" style="text-decoration: none;">
+          <button style="
+              padding: 9px 18px;
+              border: none;
+              border-radius: 999px;
+              background: #f0f0f0;
+              font-size: 15px;
+              cursor: pointer;
+          ">
+            Edit
+          </button>
+        </a>
+
+        <a href="{{ url_for('delete_book', id=book['bookId']) }}" style="text-decoration: none;">
+          <button style="
+              padding: 9px 18px;
+              border: none;
+              border-radius: 999px;
+              background: #ff3b30;
+              color: white;
+              font-size: 15px;
+              cursor: pointer;
+          ">
+            Delete
+          </button>
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+{% endblock %}
