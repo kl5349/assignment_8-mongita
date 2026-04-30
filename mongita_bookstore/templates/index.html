@@ -1,44 +1,107 @@
 {% extends 'base.html' %}
 {% block container %}
-<main>
-    <div id="mainLeft">
-        <h1 class="welcomeText">
-            Welcome to the single source for all your music book needs!
-        </h1>
 
-        <p class="welcomeText">
-            If you want to learn about music theory or the people that compose it, we have something for you
-        </p>
-        <p class="welcomeText">
-            If you want help in playing an instrument or if you want some music to play, you've come to the right place
-        </p>
-        <p class="welcomeText">
-            We have the most extensive music book selection online and we keep our prices as low as we can to keep you coming back.
-        </p>
+<div style="
+  width: 100%;
+  padding: 70px 6%;
+  box-sizing: border-box;
+">
+
+  <section style="
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 70px;
+  ">
+
+    <div>
+      <h1 style="font-size: 56px; margin-bottom: 20px;">
+        Welcome to Treble Clef
+      </h1>
+
+      <p style="font-size: 20px; color: #555;">
+        Manage your bookstore easily. Create, edit, and delete books in seconds.
+      </p>
+
+      <div style="margin-top: 25px; display:flex; gap:15px;">
+        <a href="{{ url_for('read_books') }}">
+          <button style="
+            padding: 14px 26px;
+            border-radius: 999px;
+            border: none;
+            background: #0071e3;
+            color: white;
+            font-size: 16px;
+          ">
+            View All Books
+          </button>
+        </a>
+
+        <a href="{{ url_for('create_book') }}">
+          <button style="
+            padding: 14px 26px;
+            border-radius: 999px;
+            border: none;
+            background: #0071e3;
+            color: white;
+            font-size: 16px;
+          ">
+            + Create Book
+          </button>
+        </a>
+      </div>
     </div>
 
-    <div id="mainRight">
-        <h1>Shop by category:</h1>
-        <div id="categorySelections">
-            {% for category in categories %}
-            <div class="category">
-                <p>
-                    <a href="{{ url_for('category', categoryId=category['categoryId']) }}">
-                        {{ category['categoryName'] }}
-                    </a>
-                </p>
+    <div style="
+      background: white;
+      padding: 50px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    ">
+      <h2>Bookstore Maintenance</h2>
+      <p>A simple CRUD system powered by Mongita.</p>
+    </div>
 
-                <a href="{{ url_for('category', categoryId=category['categoryId']) }}">
-                    <img
-                        src="{{ url_for('static', filename='images/categories/' + category['categoryName']|lower|replace(' ', '-') + '-category.jpg') }}"
-                        alt="{{ category['categoryName'] }}"
-                    >
-                </a>
-            </div>
-            {% endfor %}
+  </section>
+
+
+  <section>
+    <h2 style="font-size: 34px; margin-bottom: 30px;">Shop by Category</h2>
+
+    <div style="
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    ">
+
+      {% for category in categories %}
+      <a href="{{ url_for('category', categoryId=category['categoryId']) }}"
+         style="text-decoration:none; color:inherit;">
+
+        <div style="
+          background: white;
+          border-radius: 20px;
+          padding: 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        ">
+
+          <img src="{{ url_for('static', filename='images/categories/' + category['categoryName']|lower|replace(' ', '-') + '-category.jpg') }}"
+               style="width: 140px; height: 100px; object-fit: cover; border-radius: 12px;">
+
+          <h3 style="margin-top: 10px;">
+            {{ category['categoryName'] }}
+          </h3>
+
         </div>
+      </a>
+      {% endfor %}
+
     </div>
-</main>
+  </section>
+
+</div>
+
 {% endblock %}
-
-
