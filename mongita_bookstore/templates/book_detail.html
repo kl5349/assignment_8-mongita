@@ -6,7 +6,7 @@
     <!-- Left Category Navigation -->
     <section id="catLeft">
         {% for cat in categories %}
-            <p class="notSelectedCategory">
+            <p class="notSelectedCategory">ç
                 <a href="{{ url_for('category', categoryId=cat['categoryId']) }}">
                     {{ cat['categoryName'] }}
                 </a>
@@ -62,5 +62,4 @@
 
 </main>
 {% endblock %}
-
 
